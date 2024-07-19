@@ -1,0 +1,28 @@
+.ions {
+  padding: 4px;
+  margin: 2px;
+  width: 200px;
+  
+  background-color: rgb(131, 110, 82);
+  border-radius: 4px;
+  color: rgb(255, 255, 255);
+}
+
+.ions:hover {
+  color: rgb(59, 3, 3);
+  cursor: pointer;
+}
+
+
+.ions-ai{
+    padding: 4px;
+    margin: 2px;
+    width: 140x;
+    background-color: rgb(66, 32, 153);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+}
+
+.ions-ai:hover {
+    background-color: rgb(132, 119, 164);
+}

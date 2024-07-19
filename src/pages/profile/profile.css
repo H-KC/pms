@@ -1,0 +1,13 @@
+/* the class user-profile is diplayed 2 col full width 2 rows  */
+
+.user-profile {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}

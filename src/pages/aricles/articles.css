@@ -1,0 +1,9 @@
+/* i want to articles-style class in 4 columns and take the full width with a gap*/
+
+.articles-style {
+    padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+  width: 100%;
+}

@@ -1,13 +1,64 @@
+/* reset all default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
+  grid-template-rows: 0.25fr 1.8fr 1fr;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  grid-template-areas:
+    "sidebar TopBar TopBar"
+    "sidebar Content Content"
+    "sidebar Content Content";
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #f0f0f0; /* Optional: for visibility */
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #153448;
+  height: 100vh;
+  text-align: center;
+}
+
+.TopBar {
+  grid-area: TopBar;
+  background-color: #3c5b6f; /* Optional: for visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.Content {
+  grid-area: Content;
+  background-color: #ffffff;
+  display: flex; /* Optional: for visibility */
 }

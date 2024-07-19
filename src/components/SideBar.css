@@ -1,0 +1,54 @@
+/* remove all a ,ul , li style */
+/* add the following style */
+.sideBar-Menu ul {
+  list-style-type: none;
+  width: 100%;
+  margin: 0 auto;
+}
+.sideBar-Menu li {
+  margin: 10px 0;
+  /* background-color: #ac1212; */
+}
+
+.sideBar-Menu a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.sideBar-Menu a:hover {
+  color: #dfd0b8;
+  font-weight: bold;
+}
+
+.sideBar-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #906666;
+  color: #dfd0b8;
+}
+/* remove ul li styles and diplay horizontali */
+.sideBar-options ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+.sideBar-options li {
+  margin: 0;
+  list-style: none;
+}
+.sideBar-options a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  vertical-align: middle;
+  display: inline-block;
+}
+.sideBar-options a:hover {
+  color: #dfd0b8;
+  font-weight: bold;
+}

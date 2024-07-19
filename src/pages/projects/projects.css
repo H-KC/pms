@@ -1,0 +1,28 @@
+.projects-style {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+}
+/* project info should be displayed in two columns */
+.project {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  width: 100%;
+  padding: 2rem;
+}
+.project .project-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+
+  /* center horizntally */
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.project .project-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
