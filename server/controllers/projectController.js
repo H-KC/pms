@@ -22,7 +22,14 @@ const getProjectById = asyncHandler(async (req, res) => {
     throw new Error("Project not found");
   }
 });
-
+// get my projects
+// @desc    Fetch my projects
+// @route   GET /api/projects/my/:id
+// @access  Private
+const getMyProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.find({ client_code: req.params.id });
+  res.json(projects);
+});
 // @desc    Create a project
 // @route   POST /api/projects
 // @access  Private
@@ -33,19 +40,18 @@ const createProject = asyncHandler(async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       keywords: req.body.keywords,
-      start_date: req.body.start_date,
       duration: req.body.duration,
       budget: req.body.budget,
       initial_amount: req.body.initial_amount,
       steps: req.body.steps,
       payment_systems: req.body.payment_systems,
-      partner_code: req.body.partner_code,
       client_code: req.body.client_code,
     });
 
     const createdProject = await project.save();
     res.status(201).json(createdProject);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -62,7 +68,6 @@ const updateProject = asyncHandler(async (req, res) => {
       project.title = req.body.title || project.title;
       project.description = req.body.description || project.description;
       project.keywords = req.body.keywords || project.keywords;
-      project.start_date = req.body.start_date || project.start_date;
       project.duration = req.body.duration || project.duration;
       project.budget = req.body.budget || project.budget;
       project.initial_amount =
@@ -70,7 +75,6 @@ const updateProject = asyncHandler(async (req, res) => {
       project.steps = req.body.steps || project.steps;
       project.payment_systems =
         req.body.payment_systems || project.payment_systems;
-      project.partner_code = req.body.partner_code || project.partner_code;
       project.client_code = req.body.client_code || project.client_code;
 
       const updatedProject = await project.save();
@@ -110,4 +114,5 @@ module.exports = {
   createProject,
   updateProject,
   deleteProject,
+  getMyProjects,
 };

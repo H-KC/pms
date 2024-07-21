@@ -26,6 +26,20 @@ const ProjectReducer = (state, action) => {
         ),
         loading: false,
       };
+    case "SET_CURRENT":
+      return {
+        ...state,
+        current: action.payload,
+      };
+    case "UPDATE_PROJECT":
+      return {
+        ...state,
+        projects: state.projects.map((project) =>
+          project._id === action.payload._id ? action.payload : project
+        ),
+        loading: false,
+        current: null,
+      };
     case "PROJECT_ERROR":
       return {
         ...state,

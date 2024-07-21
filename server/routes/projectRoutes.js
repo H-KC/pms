@@ -7,11 +7,13 @@ const {
   createProject,
   updateProject,
   deleteProject,
+  getMyProjects,
 } = require("../controllers/projectController");
 
 const { protect } = require("../middleware/authMiddleware");
 
 router.route("/").get(getProjects).post(protect, createProject);
+router.route("/my/:id").get(getMyProjects);
 router
   .route("/:id")
   .get(getProjectById)

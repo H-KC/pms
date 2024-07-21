@@ -8,15 +8,18 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, {
     user: null,
+    users: [],
     isAuth: false,
+    current: null,
     isLoading: true,
   });
   // base url for the backend
-  axios.defaults.baseURL =
-    "https://orange-zebra-4w9qq6595vp27gjq-5000.app.github.dev";
+  axios.defaults.baseURL = "http://localhost:5000/";
 
   const navigate = useNavigate();
-
+  useEffect(() => {
+    getUsers();
+  }, []);
   // Load user
   const loadUser = async () => {
     try {
@@ -40,9 +43,11 @@ export const AuthProvider = ({ children }) => {
   };
   // get all users
   const getUsers = async () => {
-    console.log("in get users");
     try {
-      const res = await axios.get("/api/users/");
+      const res = await axios.get("/api/users/", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
       dispatch({
         type: "GET_USERS",
         payload: res.data,
@@ -105,11 +110,13 @@ export const AuthProvider = ({ children }) => {
       // Error handling
     }
   };
-  const updatedUser = async (id) => {
+  const updateUser = async (user) => {
     try {
-      const res = await axios.put(`/api/user/${id}`);
+      const res = await axios.put(`/api/users/${user._id}`, user, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: "UPDATE_USER",
         payload: res.data,
       });
     } catch (err) {
@@ -121,9 +128,12 @@ export const AuthProvider = ({ children }) => {
 
   const deleteUser = async (id) => {
     try {
-      const res = await axios.delete(`/api/user/${id}`);
+      const res = await axios.delete(`/api/users/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: "DELETE_USER",
         payload: res.data,
       });
     } catch (err) {
@@ -145,15 +155,18 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user: state.user,
+        users: state.users,
         isAuth: state.isAuth,
+        current: state.current,
         isLoading: state.isLoading,
         loginUser,
-        updatedUser,
+        updateUser,
         deleteUser,
         getUsers,
         logout,
         loadUser,
         registerUser,
+        dispatch,
       }}
     >
       {children}

@@ -27,29 +27,14 @@ export default function ProjectTabs({ client, partner, start_date, duration }) {
           {client}
         </Chip>
       </TabPanel>
-      <TabPanel value={1}>
-        {partner.map((item) => (
-          <Chip
-            key={item}
-            label={item}
-            color="primary"
-            variant="plain"
-            size="lg"
-            style={{
-              margin: "5px 2px ",
-            }}
-          >
-            {item}
-          </Chip>
-        ))}
-      </TabPanel>
+      <TabPanel value={1}>{partner}</TabPanel>
       <TabPanel value={2}>
         <Chip label={start_date} color="primary" variant="plain" size="lg">
           <strong>Start Date : </strong>
           {start_date}
         </Chip>
-         
-        <Chip label={duration} color="danger" variant="plain" size="lg">
+
+        <Chip label={duration} color="error" variant="plain" size="lg">
           <strong>Duration : </strong>
           {duration}
         </Chip>

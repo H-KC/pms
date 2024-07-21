@@ -10,12 +10,12 @@ const projectSchema = new Schema({
     required: true,
   },
   keywords: {
-    type: [String],
+    type: String,
     required: true,
   },
   start_date: {
     type: Date,
-    required: true,
+    default: Date.now,
   },
   duration: {
     type: String,
@@ -30,11 +30,11 @@ const projectSchema = new Schema({
     required: true,
   },
   steps: {
-    type: [String],
+    type: String,
     required: true,
   },
   payment_systems: {
-    type: [String],
+    type: String,
     required: true,
   },
   partner_code: {
@@ -44,7 +44,6 @@ const projectSchema = new Schema({
         ref: "User",
       },
     ],
-    required: true,
   },
   client_code: {
     type: Schema.Types.ObjectId,
@@ -52,4 +51,3 @@ const projectSchema = new Schema({
   },
 });
 module.exports = mongoose.model("Project", projectSchema);
-

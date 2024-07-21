@@ -1,13 +1,13 @@
-import Box from "@mui/joy/Box";
+import { Box } from "@mui/joy";
 import Button from "@mui/joy/Button";
-import Card from "@mui/joy/Card";
-import CardActions from "@mui/joy/CardActions";
-import Chip from "@mui/joy/Chip";
+import { Card } from "@mui/joy";
+import { CardActions } from "@mui/joy";
+
 import Divider from "@mui/joy/Divider";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import Typography from "@mui/joy/Typography";
+import { Typography } from "@mui/joy";
 import Check from "@mui/icons-material/Check";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 {
@@ -26,13 +26,10 @@ const InfoCard = ({ data, title, payment_systems }) => {
       }}
     >
       <Card size="lg" variant="outlined">
-        {/* <Chip size="sm" variant="outlined" color="neutral">
-          BASIC
-        </Chip> */}
         <Typography level="h2">{title}</Typography>
         <Divider inset="none" />
         <List size="sm" sx={{ mx: "calc(-1 * var(--ListItem-paddingX))" }}>
-          {data.map((item, index) => (
+          {data.split(",").map((item, index) => (
             <ListItem key={index}>
               <ListItemDecorator>
                 <Check />
@@ -43,21 +40,17 @@ const InfoCard = ({ data, title, payment_systems }) => {
         </List>
         <Divider inset="none" />
         <CardActions>
-          
           <AttachMoney />
-          {
-            payment_systems.map((payment_system, index) => (
-              <Button
-                key={index}
-                variant="text"
-                color="primary"
-                endIcon={<KeyboardArrowRight />}
-              >
-                {payment_system}
-              </Button>
-            ))
-
-          }
+          {payment_systems.split(",").map((payment_system, index) => (
+            <Button
+              key={index}
+              variant="text"
+              color="primary"
+              endIcon={<KeyboardArrowRight />}
+            >
+              {payment_system}
+            </Button>
+          ))}
         </CardActions>
       </Card>
     </Box>

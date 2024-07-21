@@ -3,6 +3,8 @@ import { ArticleProvider } from "./context/Article/ArticleContext";
 import { ProjectProvider } from "./context/Project/ProjectContext";
 import { AuthProvider } from "./context/Auth/AuthContext";
 import { AiProvider } from "./context/AI/AiContext";
+import { NotificationProvider } from "./context/Notification/NotificationContext";
+import { ApplicationProvider } from "./context/Application/ApplicationContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/home/Home";
@@ -15,44 +17,52 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Visit from "./pages/home/Visit";
 import Profile from "./pages/profile/Profile";
-
+import Notification from "./pages/notification/Notification";
 import PrivateRoute from "./routing/PrivateRoute";
 import TopBar from "./components/TopBar";
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <AiProvider>
-          <ProjectProvider>
-            <ArticleProvider>
-              <div className="container">
-                <div className="sidebar">
-                  <SideBar />
-                </div>
-                <div className="TopBar">
-                  <TopBar />
-                </div>
-                <div className="Content">
-                  <Routes>
-                    <Route path="/" element={<PrivateRoute />}>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/projects" element={<Projects />} />
-                      <Route path="/projects/:id" element={<Project />} />
-                      <Route path="/articles" element={<Articles />} />
-                      <Route path="/articles/:id" element={<Article />} />
-                      <Route path="/profile" element={<Profile />} />
-                    </Route>
+        <NotificationProvider>
+          <ApplicationProvider>
+            <AiProvider>
+              <ProjectProvider>
+                <ArticleProvider>
+                  <div className="container">
+                    <div className="sidebar">
+                      <SideBar />
+                    </div>
+                    <div className="TopBar">
+                      <TopBar />
+                    </div>
+                    <div className="Content">
+                      <Routes>
+                        <Route path="/" element={<PrivateRoute />}>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/about" element={<About />} />
+                          <Route path="/projects" element={<Projects />} />
+                          <Route path="/projects/:id" element={<Project />} />
+                          <Route path="/articles" element={<Articles />} />
+                          <Route path="/articles/:id" element={<Article />} />
+                          <Route path="/profile" element={<Profile />} />
+                        </Route>
 
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/visit" element={<Visit />} />
-                  </Routes>
-                </div>
-              </div>
-            </ArticleProvider>
-          </ProjectProvider>
-        </AiProvider>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/visit" element={<Visit />} />
+                        <Route
+                          path="/notifications"
+                          element={<Notification />}
+                        />
+                      </Routes>
+                    </div>
+                  </div>
+                </ArticleProvider>
+              </ProjectProvider>
+            </AiProvider>
+          </ApplicationProvider>
+        </NotificationProvider>
       </AuthProvider>
     </Router>
   );

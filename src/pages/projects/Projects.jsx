@@ -17,14 +17,20 @@ import Tooltip from "@mui/joy/Tooltip";
 
 const Projects = () => {
   const projectContext = useContext(ProjectContext);
-  const { projects } = projectContext;
+  const { projects, getProjects } = projectContext;
   const navigate = useNavigate();
   const [projectsList, setProject] = useState(projects);
+  useEffect(() => {
+    const fetchData = async () => {
+      await getProjects();
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <div className="projects-style">
-        {projectsList.map((project, index) => (
+        {projects.map((project, index) => (
           <Card
             variant="solid"
             color="primary"
@@ -41,12 +47,14 @@ const Projects = () => {
           >
             <Box sx={{ display: "flex", gap: 1 }}>
               Keywords:
-              <Chip size="sm" variant="soft">
-                {project.keywords[0]}
-              </Chip>
-              <Chip size="sm" variant="soft">
-                {project.keywords[1]}
-              </Chip>
+              {
+                // split the stirng into array and map through it to show the first and last keyword sepreated by ...
+                project.keywords.split(",").map((keyword, index) => (
+                  <Chip key={index} variant="outlined" color="neutral">
+                    {keyword}
+                  </Chip>
+                ))
+              }
             </Box>
             <Divider />
             <div>
@@ -69,12 +77,20 @@ const Projects = () => {
               <Box sx={{ display: "flex", gap: 1 }}>
                 {/* //show only first step the horizontal line the last step */}
                 Steps:
-                <Typography level="body-md">{project.steps[0]}</Typography>
+                <Typography level="body-md">
+                  {
+                    project.steps.split(",").map((step, index) => (
+                      <Chip key={index} variant="outlined" color="neutral">
+                        {step}
+                      </Chip>
+                    ))[0]
+                  }
+                </Typography>
                 <Typography level="body-md">
                   <Tooltip
                     title={
                       //  convert array to string seperated by comma
-                      project.steps.map((step) => step).join(", ")
+                      project.steps
                     }
                     placement="top"
                   >
@@ -82,21 +98,33 @@ const Projects = () => {
                   </Tooltip>
                 </Typography>
                 <Typography level="body-md">
-                  {project.steps[project.steps.length - 1]}
+                  {
+                    project.steps.split(",").map((step, index) => (
+                      <Chip key={index} variant="outlined" color="neutral">
+                        {step}
+                      </Chip>
+                    ))[project.steps.split(",").length - 1]
+                  }
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", gap: 1 }}>
                 Payment Systems:
                 <Typography level="body-md">
-                  {project.payment_systems[0]}
+                  {
+                    project.payment_systems
+                      .split(",")
+                      .map((payment_system, index) => (
+                        <Chip key={index} variant="outlined" color="neutral">
+                          {payment_system}
+                        </Chip>
+                      ))[project.payment_systems.split(",").length - 1]
+                  }
                 </Typography>
                 <Typography level="body-md">
                   <Tooltip
                     title={
                       //  convert array to string seperated by comma
                       project.payment_systems
-                        .map((payment) => payment)
-                        .join(", ")
                     }
                     placement="top"
                   >
@@ -104,7 +132,15 @@ const Projects = () => {
                   </Tooltip>
                 </Typography>
                 <Typography level="body-md">
-                  {project.payment_systems[project.payment_systems.length - 1]}
+                  {
+                    project.payment_systems
+                      .split(",")
+                      .map((payment_system, index) => (
+                        <Chip key={index} variant="outlined" color="neutral">
+                          {payment_system}
+                        </Chip>
+                      ))[project.payment_systems.split(",").length - 1]
+                  }
                 </Typography>
               </Box>
             </CardContent>

@@ -21,7 +21,7 @@ const SideBar = () => {
   useEffect(() => {
     loadUser();
     setUserState(user);
-  }, [user]);
+  }, []);
 
   const [userState, setUserState] = useState(null);
   return (

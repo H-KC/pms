@@ -7,6 +7,9 @@ import { buttonClasses } from "@mui/base/Button";
 import { Tab as BaseTab, tabClasses } from "@mui/base/Tab";
 import ArticleForm from "../../components/shared/ArticleForm";
 import ArticleTable from "../aricles/ArticleTable";
+import { ProjectTable } from "../projects/ProjectTable";
+import ProjectForm from "../projects/ProjectForm";
+import UserInfor from "../../components/shared/UserInfor";
 export default function UserTabs() {
   return (
     <Tabs defaultValue={0}>
@@ -27,8 +30,13 @@ export default function UserTabs() {
         <ArticleTable />
         <ArticleForm />
       </TabPanel>
-      <TabPanel value={1}>Profile page</TabPanel>
-      <TabPanel value={2}>Language page</TabPanel>
+      <TabPanel value={1}>
+        <ProjectForm />
+        <ProjectTable />
+      </TabPanel>
+      <TabPanel value={2}>
+        <UserInfor />
+      </TabPanel>
     </Tabs>
   );
 }

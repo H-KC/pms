@@ -15,44 +15,39 @@ import InfoCard from "../../components/shared/InfoCard";
 import ProjectTabs from "../../components/shared/ProjectTabs";
 const Project = () => {
   const projectContext = useContext(ProjectContext);
-  const { projects } = projectContext;
+  const { project, getProject } = projectContext;
 
   const [projectItem, setProjectItem] = useState(null);
   const location = useLocation();
   const projectId = location.pathname.split("/")[2];
   useEffect(() => {
-    const project = projects.find((project) => project._id === projectId);
-    setProjectItem(project);
-  }, [projects, projectId]);
+    const fetchData = async () => {
+      const res = await getProject(projectId);
+      setProjectItem(res);
+    };
+    fetchData();
+    // setProjectItem(project);
+  }, [projectId]);
 
   return (
     <>
-      {projectItem && (
+      {project && (
         <div className="project">
           <Typography color="primary" level="h1" textAlign={"center"}>
-            {projectItem.title}
+            {project.title}
           </Typography>
           <div>
-            {projectItem.keywords.map((keyword) => (
-              <Chip
-                key={keyword}
-                size="sm"
-                variant="soft"
-                color="primary"
-                label={keyword}
-                style={{
-                  margin: "5px 2px ",
-                }}
-              />
+            {project.keywords.split(",").map((keyword, index) => (
+              <Chip key={index} label={keyword} />
             ))}
             <Divider />
-            <Typography level="body-md">{projectItem.description}</Typography>
+            <Typography level="body-md">{project.description}</Typography>
           </div>
           <div className="project-stats">
-            <CardInvertedColors amount={projectItem.budget} title={"Budget"} />
+            <CardInvertedColors amount={project.budget} title={"Budget"} />
 
             <CardInvertedColors
-              amount={projectItem.initial_amount}
+              amount={project.initial_amount}
               title={"Initial Amount"}
             />
             <CardInvertedColors amount={135.6} title={"Gross Profit"} />
@@ -62,15 +57,15 @@ const Project = () => {
 
           <div className="project-footer">
             <ProjectTabs
-              client={projectItem.client_code}
-              partner={projectItem.partner_code}
-              start_date={projectItem.start_date}
-              duration={projectItem.duration}
+              client={project.client_code}
+              partner={project.partner_code}
+              start_date={project.start_date}
+              duration={project.duration}
             />
             <InfoCard
-              data={projectItem.steps}
+              data={project.steps}
               title="Steps"
-              payment_systems={projectItem.payment_systems}
+              payment_systems={project.payment_systems}
             />
           </div>
         </div>

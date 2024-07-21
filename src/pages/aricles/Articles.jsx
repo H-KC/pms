@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ArticleContext } from "../../context/Article/ArticleContext";
+import { AuthContext } from "../../context/Auth/AuthContext";
 import "./articles.css";
 import { useNavigate } from "react-router-dom";
 // using material ui show articles
@@ -10,18 +11,26 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 const Articles = () => {
   const articleContext = useContext(ArticleContext);
-  const { articles } = articleContext;
+  const { articles, getArticles } = articleContext;
+  const { getUsers, users } = useContext(AuthContext);
+  useEffect(() => {
+    const fetchData = async () => {
+      await getUsers();
+      await getArticles();
+    };
+    fetchData();
+  }, []);
   const navigate = useNavigate();
 
   return (
     <>
-      {articles ? (
+      {articles && users.length > 0 ? (
         <div className="articles-style">
           {articles.map((article) => (
-            <Card key={article.id} className="card-style">
+            <Card key={article._id} className="card-style">
               <CardActionArea
                 onClick={() => {
-                  navigate(`/articles/${article.id}`);
+                  navigate(`/articles/${article._id}`);
                 }}
               >
                 <CardMedia
@@ -41,7 +50,8 @@ const Articles = () => {
               </CardActionArea>
               <CardActions>
                 <Button size="small" color="primary">
-                  {article.author}
+                  {users.length > 0 &&
+                    users.find((user) => user._id === article.author).name}
                 </Button>
                 <Button size="small" color="success">
                   {article.date}

@@ -18,8 +18,6 @@ app.get("/", (req, res) => {
 // Use CORS for all routes
 app.use(cors());
 
-
-
 // Routes
 
 app.use("/api/users", require("./routes/userRoutes"));
@@ -29,7 +27,12 @@ app.use("/api/projects", require("./routes/projectRoutes"));
 
 // Articles
 app.use("/api/articles", require("./routes/articleRoutes"));
-// app.use(errorHandler);
+
+// Notifications
+app.use("/api/notifications", require("./routes/notificationRoutes"));
+
+// Applications
+app.use("/api/applications", require("./routes/applicationRoutes"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

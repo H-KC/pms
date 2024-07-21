@@ -42,7 +42,7 @@ const ArticleReducer = (state, action) => {
         loading: false,
         current: null,
       };
-      case "SET_CURRENT":
+    case "SET_CURRENT":
       return {
         ...state,
         current: action.payload,

@@ -2,66 +2,20 @@ import { createContext, useReducer } from "react";
 import ArticleReducer from "./ArticleReducer";
 import axios from "axios";
 export const ArticleContext = createContext();
-
+import { useEffect } from "react";
 export const ArticleProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ArticleReducer, {
     // each article will have a id: Integer title: String ,content: String, author: String, publication_date: Date ,photo: String
-    articles: [
-      {
-        id: 1,
-        title: "Article 1",
-        content: "Content 1",
-        author: "Author 1",
-        publication_date: "2021-07-01",
-        photo: "https://via.placeholder.com/150",
-      },
-      {
-        id: 2,
-        title: "Article 2",
-        content: "Content 2",
-        author: "Author 2",
-        publication_date: "2021-07-02",
-        photo: "https://via.placeholder.com/150",
-      },
-      {
-        id: 3,
-        title: "Article 3",
-        content: "Content 3",
-        author: "Author 3",
-        publication_date: "2021-07-03",
-        photo: "https://via.placeholder.com/150",
-      },
-      {
-        id: 4,
-        title: "Article 4",
-        content: "Content 4",
-        author: "Author 4",
-        publication_date: "2021-07-04",
-        photo: "https://via.placeholder.com/150",
-      },
-      {
-        id: 5,
-        title: "Article 5",
-        content: "Content 5",
-        author: "Author 5",
-        publication_date: "2021-07-05",
-        photo: "https://via.placeholder.com/150",
-      },
-      {
-        id: 6,
-        title: "Article 6",
-        content: "Content 6",
-        author: "Author 6",
-        publication_date: "2021-07-06",
-        photo: "https://via.placeholder.com/150",
-      },
-    ],
-    article: {},
+    articles: [],
+    article: null,
     current: null,
     myArticles: [],
     loading: true,
     error: null,
   });
+  useEffect(() => {
+    getArticles();
+  }, []);
   // backend api takes in a token for authentication and returns a list of articles
 
   const getArticles = async () => {
@@ -86,10 +40,6 @@ export const ArticleProvider = ({ children }) => {
     try {
       const res = await axios.get(`/api/articles/my/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      dispatch({
-        type: "GET_MY_ARTICLES",
-        payload: res.data,
       });
     } catch (error) {
       dispatch({
@@ -123,6 +73,10 @@ export const ArticleProvider = ({ children }) => {
         type: "ADD_ARTICLE",
         payload: res.data,
       });
+      dispatch({
+        type: "GET_MY_ARTICLES",
+        payload: res.data,
+      });
       // navigate("/articles");
     } catch (error) {
       dispatch({
@@ -135,7 +89,7 @@ export const ArticleProvider = ({ children }) => {
   // update article
   const updateArticle = async (article) => {
     try {
-      const res = await axios.put(`/api/articles/${article.id}`, article, {
+      const res = await axios.put(`/api/articles/${article._id}`, article, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       dispatch({
@@ -158,7 +112,7 @@ export const ArticleProvider = ({ children }) => {
       });
       dispatch({
         type: "DELETE_ARTICLE",
-        payload: id,
+        payload: res.data,
       });
     } catch (error) {
       dispatch({

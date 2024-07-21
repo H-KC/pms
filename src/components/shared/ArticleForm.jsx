@@ -3,9 +3,11 @@ import TextField from "@mui/material/TextField";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { ArticleContext } from "../../context/Article/ArticleContext";
 import { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 const ArticleForm = () => {
   const { addArticle, updateArticle, current } = useContext(ArticleContext);
+  const { user } = useContext(AuthContext);
   const [article, setArticle] = useState({
     title: "",
     content: "",
@@ -15,30 +17,20 @@ const ArticleForm = () => {
   const onChange = (e) =>
     setArticle({ ...article, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
-    e.preventDefault();
-
     if (current === null) {
+      article.author = user._id;
+      console.log(article);
       addArticle(article);
     } else {
       updateArticle(article);
     }
+
     setArticle({
       title: "",
       content: "",
       photo: "",
     });
   };
-  useEffect(() => {
-    if (current !== null) {
-      setArticle(current);
-    } else {
-      setArticle({
-        title: "",
-        content: "",
-        photo: "",
-      });
-    }
-  }, [current]);
 
   return (
     <Box
@@ -60,7 +52,7 @@ const ArticleForm = () => {
         <TextField
           label="title"
           id="outlined-size-small"
-          defaultValue={title}
+          value={title}
           size="small"
           name="title"
           onChange={onChange}
@@ -70,16 +62,16 @@ const ArticleForm = () => {
           minRows={3}
           placeholder="Minimum 3 rows"
           name="content"
-          defaultValue={content}
+          value={content}
           onChange={onChange}
         />
 
         <TextField
-          label="Photo Link"
+          label="photo"
           id="outlined-size-small"
           name="photo"
-          size="Photo Link"
-          defaultValue={photo}
+          size="small"
+          value={photo}
           onChange={onChange}
         />
         <button
